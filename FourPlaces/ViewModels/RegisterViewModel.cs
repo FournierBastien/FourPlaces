@@ -67,7 +67,9 @@ namespace FourPlaces.ViewModels
 
         private async Task NavigateToLoginAsync()
         {
-            await Navigation.PushAsync(new LoginPage());
+            //await Navigation.PushAsync(new LoginPage());
+            Application.Current.MainPage = new LoginPage();
+            return;
         }
 
         private async Task RegisterAsync()

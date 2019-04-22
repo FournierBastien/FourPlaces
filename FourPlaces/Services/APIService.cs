@@ -88,50 +88,50 @@ namespace FourPlaces.Model.Services
         // requête pour modifier son mot de passe
         public async Task<bool> EditPassword(string oldPassword, string newPassword)
         {
-            using (HttpClient client = new HttpClient())
+
+            try
             {
-                try
+                httpClient = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), "https://td-api.julienmialon.com/auth/me/password");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                UpdatePasswordRequest pass = new UpdatePasswordRequest(oldPassword, newPassword);
+
+                string data = JsonConvert.SerializeObject(pass);
+                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+
+                var response = await httpClient.SendAsync(request);
+                if (response.IsSuccessStatusCode)
                 {
-                    // requête de type 'PATCH'
-                    HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), "https://td-api.julienmialon.com/auth/me/password");
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
-
-                    //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
-                    UpdatePasswordRequest temp = new UpdatePasswordRequest(oldPassword, newPassword);
-                    string data = JsonConvert.SerializeObject(temp);
-                    request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-
-                    HttpResponseMessage response = await client.SendAsync(request);
-
-                    if (response.IsSuccessStatusCode)
+                    if (await GetUser())
                     {
                         return true;
                     }
-                    else
+                }
+                else
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        // on regarde si le token est expiré, si oui, on le réactualise
-                        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        bool tryRef = await RefreshToken();
+                        if (tryRef)
                         {
-                            bool tryRef = await RefreshToken();
-                            if (tryRef)
+                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                            response = await httpClient.SendAsync(request);
+                            if (response.IsSuccessStatusCode)
                             {
-                                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
-
-                                response = await httpClient.SendAsync(request);
-                                if (response.IsSuccessStatusCode)
+                                if (await GetUser())
                                 {
                                     return true;
                                 }
                             }
                         }
-                        return false;
                     }
                 }
-                catch (HttpRequestException e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
-                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
             }
         }
 
@@ -139,58 +139,57 @@ namespace FourPlaces.Model.Services
         // requête pour ajouter un lieu
         public async Task<bool> AddPlace(string title, string description, int imageId, double latitude, double longitude)
         {
-            using (HttpClient client = new HttpClient())
+
+            try
             {
-                try
+                httpClient = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), "https://td-api.julienmialon.com/places");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                CreatePlaceRequest place = new CreatePlaceRequest(title, description, imageId, latitude, longitude);
+
+                string data = JsonConvert.SerializeObject(place);
+                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+
+                var response = await httpClient.SendAsync(request);
+                if (response.IsSuccessStatusCode)
                 {
-                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://td-api.julienmialon.com/places");
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.SESSION_LOGIN.AccessToken);
-
-                    CreatePlaceRequest temp = new CreatePlaceRequest(title, description, imageId, latitude, longitude);
-                    string data = JsonConvert.SerializeObject(temp);
-                    request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-
-                    HttpResponseMessage response = await client.SendAsync(request);
-
-                    if (response.IsSuccessStatusCode)
+                    if (await GetUser())
                     {
                         return true;
                     }
-                    else
+                }
+                else
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        bool tryRef = await RefreshToken();
+                        if (tryRef)
                         {
-                            bool tryRef = await RefreshToken();
-                            if (tryRef)
+                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                            response = await httpClient.SendAsync(request);
+                            if (response.IsSuccessStatusCode)
                             {
-                                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.SESSION_LOGIN.AccessToken);
-                                response = await client.SendAsync(request);
-                                if (response.IsSuccessStatusCode)
+                                if (await GetUser())
                                 {
                                     return true;
                                 }
                             }
                         }
                     }
-                    return false;
                 }
-                catch (HttpRequestException e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
-                }
+                return false;
             }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
 
         // requêt pour récupérer les Place
         public async Task<PlaceItem> GetPlace(int id)
         {
-
-            // si les Place déjà chargées ne sont pas expirées, pas besoin de faire une requête à l'API
-            if (!Barrel.Current.IsExpired(key: "Place"))
-            {
-                return Barrel.Current.Get<PlaceItem>(key: "Place");
-            }
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -225,67 +224,61 @@ namespace FourPlaces.Model.Services
         // On modifie les informations de l'utilisateur
         public async Task<bool> EditUser(string firstName, string lastName, int? imageId)
         {
-            using (HttpClient client = new HttpClient())
+
+            try
             {
-                try
+                httpClient = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), "https://td-api.julienmialon.com/me");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                UpdateProfileRequest temp = new UpdateProfileRequest(firstName, lastName, imageId);
+
+                string data = JsonConvert.SerializeObject(temp);
+                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+
+                var response = await httpClient.SendAsync(request);
+                if (response.IsSuccessStatusCode)
                 {
-                    HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), "https://td-api.julienmialon.com/me");
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
-
-                    UpdateProfileRequest update = new UpdateProfileRequest(firstName, lastName, imageId);
-                    string data = JsonConvert.SerializeObject(update);
-                    request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-
-                    HttpResponseMessage response = await client.SendAsync(request);
-                    
-
-                    Console.WriteLine("edituser" + response.StatusCode.ToString());
-                    if (response.IsSuccessStatusCode)
+                    if (await GetUser())
                     {
-                        var content = await response.Content.ReadAsStringAsync();
-                        Response<UserItem> res = JsonConvert.DeserializeObject<Response<UserItem>>(content);
-                        Barrel.Current.Add(key: "User", data: res.Data, expireIn: TimeSpan.FromDays(1));
-  
                         return true;
                     }
-                    else
+                }
+                else
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        bool tryRef = await RefreshToken();
+                        if (tryRef)
                         {
-                            bool tryRef = await RefreshToken();
-                            if (tryRef)
+                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                            response = await httpClient.SendAsync(request);
+                            if (response.IsSuccessStatusCode)
                             {
-                                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
-                                response = await httpClient.SendAsync(request);
-                                if (response.IsSuccessStatusCode)
+                                if (await GetUser())
                                 {
-                                    if (await GetUser())
-                                    {
-                                        return true;
-                                    }
+                                    return true;
                                 }
                             }
                         }
-                        return false;
                     }
-                    
                 }
-                catch (HttpRequestException e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
-                }
+                return false;
             }
-
+            catch (Exception e)
+            {
+                return false;
+            }
+           
         }
 
         public async Task<PlacesList> GetListPlaces()
         {
 
-            if (Barrel.Current.IsExpired("PlacesList"))
+            /*if (Barrel.Current.IsExpired("PlacesList"))
             {
                 return Barrel.Current.Get<PlacesList>("PlacesList");
-            }
+            }*/
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -366,63 +359,56 @@ namespace FourPlaces.Model.Services
         // Ajout d'un commentaire
         public async Task<bool> SubmitComment(string comment, int place)
         {
-
-            using (HttpClient client = new HttpClient())
+            try
             {
-                try
-                {
-                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://td-api.julienmialon.com/places/" + place + "/comments");
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
-                    CreateCommentRequest commentRequest = new CreateCommentRequest(comment);
-                    string data = JsonConvert.SerializeObject(commentRequest);
-                    request.Content = new StringContent(data, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.SendAsync(request);
+                httpClient = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), "https://td-api.julienmialon.com/places/" + place + "/comments");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                CreateCommentRequest commentR= new CreateCommentRequest(comment);
 
-                    if (response.IsSuccessStatusCode)
+                string data = JsonConvert.SerializeObject(commentR);
+                request.Content = new StringContent(data, Encoding.UTF8, "application/json");
+
+
+                var response = await httpClient.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    if (await GetUser())
                     {
-                        Console.WriteLine("Success comment");
                         return true;
                     }
-                    else
+                }
+                else
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-
-                        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        bool tryRef = await RefreshToken();
+                        if (tryRef)
                         {
-                            bool tryRef = await RefreshToken();
-                            if (tryRef)
+                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                            response = await httpClient.SendAsync(request);
+                            if (response.IsSuccessStatusCode)
                             {
-                                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
-                                response = await client.SendAsync(request);
-                                if (response.IsSuccessStatusCode)
+                                if (await GetUser())
                                 {
                                     return true;
                                 }
                             }
                         }
-                        else
-                        {
-                            Console.WriteLine("Erreur comment" + response.StatusCode);
-                            return false;
-                        }
-                        return false;
                     }
-
                 }
-                catch (HttpRequestException e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
-                }
+                return false;
             }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
 
         // Obtenir les informations de l'utilisateur
         public async Task<bool> GetUser()
         {
-            if (!Barrel.Current.IsExpired("Login"))
-            {
-                return true;
-            }
 
             using (HttpClient client = new HttpClient())
             {
@@ -438,6 +424,7 @@ namespace FourPlaces.Model.Services
                         var contentResponse = await response.Content.ReadAsStringAsync();
                         Response<UserItem> res = JsonConvert.DeserializeObject<Response<UserItem>>(contentResponse);
                         Barrel.Current.Add(key: "User", data: res.Data, expireIn: TimeSpan.FromDays(1));
+                        App.SESSION_USER = res.Data;
                         Console.WriteLine("GetUser réussi code 200 objet");
                         return true;
                     }
@@ -464,8 +451,9 @@ namespace FourPlaces.Model.Services
                 try
                 {
                     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://td-api.julienmialon.com/auth/refresh");
-                    var postParams = new Dictionary<string, string> { { "refresh_token", App.SESSION_LOGIN.RefreshToken } };
-                    request.Content = new FormUrlEncodedContent(postParams);
+                    RefreshRequest refreshToken = new RefreshRequest(Barrel.Current.Get<LoginResult>(key: "Login").RefreshToken);
+                    string data = JsonConvert.SerializeObject(refreshToken);
+                    request.Content = new StringContent(data, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.SendAsync(request);
 
                     if (response.IsSuccessStatusCode)
@@ -524,40 +512,6 @@ namespace FourPlaces.Model.Services
             }
         }
 
-        public async Task<int> FindEndImage()
-        {
-            int end = 50;
-
-            int borneSup = end;
-            int borneInf = 1;
-            int mid;
-
-            while (end < end * 2 * 10)
-            {
-                while (borneInf != borneSup)
-                {
-                    mid = borneInf + (borneSup - borneInf) / 2;
-                    if (await TestImage(mid))
-                    {
-                        if (!await TestImage(mid + 1))
-                        {
-                            return mid;
-                        }
-                        else
-                        {
-                            borneInf = mid;
-                        }
-                    }
-                    else
-                    {
-                        borneSup = mid;
-                    }
-                }
-                end = end * 2;
-            }
-            return 1;
-
-        }
 
         public async Task<bool> TestImage(int id)
         {
@@ -577,20 +531,15 @@ namespace FourPlaces.Model.Services
             return false;
         }
 
-        public async Task<int?> LoadPicture(bool temp)
+        public async Task<int?> LoadPicture()
         {
             try
             {
                 var uri = new Uri(string.Format("https://td-api.julienmialon.com/images", string.Empty));
                 MediaFile file;
-                if (temp)
-                {
-                    file = await App.MEDIA_SERVICE.ChooseImage();
-                }
-                else
-                {
-                    file = await App.MEDIA_SERVICE.TakePicture();
-                }
+                
+                file = await App.MEDIA_SERVICE.ChooseImage();
+               
                 httpClient = new HttpClient();
                 byte[] imageData = File.ReadAllBytes(file.Path);
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, uri);
@@ -618,7 +567,12 @@ namespace FourPlaces.Model.Services
                         {
                             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.SESSION_LOGIN.AccessToken);
 
-                            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
+                            requestContent = new MultipartFormDataContent();
+                            imageContent = new ByteArrayContent(imageData);
+                            imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                            requestContent.Add(imageContent, "file", "file.jpg");
+                            request.Content = requestContent;
+
                             response = await httpClient.SendAsync(request);
                             result = await response.Content.ReadAsStringAsync();
                             if (response.IsSuccessStatusCode)

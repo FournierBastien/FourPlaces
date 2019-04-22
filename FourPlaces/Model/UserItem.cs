@@ -27,5 +27,6 @@ namespace FourPlaces.Model
             Email = email;
             ImageId = imageId;
         }
+
     }
 }

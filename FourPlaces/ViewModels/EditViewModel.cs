@@ -23,7 +23,6 @@ namespace FourPlaces.ViewModels
         private string imageUrl;
         public ICommand SubmitEditCommand { protected set; get; }
         public ICommand LoadPictureCommand { protected set; get; }
-        public ICommand TakePictureCommand { protected set; get; }
         public INavigation Navigation { get; set; }
 
         public ImageItem SelectedImage
@@ -92,6 +91,9 @@ namespace FourPlaces.ViewModels
             this.Navigation = navigation;
             firstName = Barrel.Current.Get<UserItem>(key: "User").FirstName;
             lastName = Barrel.Current.Get<UserItem>(key: "User").LastName;
+
+            //firstName = App.SESSION_USER.FirstName;
+
             imageId = Barrel.Current.Get<UserItem>(key: "User").ImageId;
             imageUrl = App.URI_API + "images/" + Barrel.Current.Get<UserItem>(key: "User").ImageId;
             images = new List<ImageItem>();
@@ -129,7 +131,7 @@ namespace FourPlaces.ViewModels
         {
             Images = new List<ImageItem>();
             int id = 1;
-            int idMax = await App.SERVICE.FindEndImage();
+            int idMax = await App.MEDIA_SERVICE.ImageEdge();
             while (id != idMax + 1)
             {
                 Images.Add(new ImageItem(id, "https://td-api.julienmialon.com/images/" + id));

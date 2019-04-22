@@ -11,7 +11,6 @@
             MasterBehavior="Popover">
 
     <MasterDetailPage.Master>
-        <!-- <local:MasterPage x:Name="masterPage"/> -->
         <ContentPage Title="Menu">
             <Grid BackgroundColor="Transparent">
                 <Grid.RowDefinitions>
@@ -19,11 +18,6 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid>
-                    <!--<Image Source="bg.png" Aspect="AspectFill" />
-                    <StackLayout Padding="0,20,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                        <Image Source="profile.png" Aspect="AspectFill" WidthRequest="85" HeightRequest="85" />
-                        <Label Text="Xam Buddy" TextColor="White" FontSize="Large" />
-                    </StackLayout> -->
                 </Grid>
                 <StackLayout  Grid.Row="1" Spacing="15">
                     <ListView x:Name="navigationDrawerList"
@@ -34,15 +28,11 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="model:MasterPageItem">
                                 <ViewCell>
-                                    <!-- Main design for our menu items -->
                                     <StackLayout VerticalOptions="FillAndExpand"
                                          Orientation="Horizontal"
                                          Padding="20,10,0,10"
                                          Spacing="20">
-                                      <!--<Image Source="{Binding IconSource}"
-                                         WidthRequest="40"
-                                         HeightRequest="40"
-                                         VerticalOptions="Center" /> -->
+
                                         <Label Text="{Binding Title}"
                                          FontSize="Small"
                                          VerticalOptions="Center"
@@ -60,76 +50,5 @@
 
         <NavigationPage>
         </NavigationPage>
-        <!-- <ContentPage Padding="10">
-            <ContentPage.Content>
-                <StackLayout Margin="5,30,5,5">
-                    <Label Text="Detail  Page">
-                    </Label>
-                </StackLayout>
-            </ContentPage.Content>
-        </ContentPage> -->
     </MasterDetailPage.Detail>
-    <!-- <MasterDetailPage.Detail>
-         <ContentPage>
-            <ContentPage.Content>
-
-                <StackLayout> -->
-                    <!-- <ActivityIndicator x:Name="IsBusy" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"/> -->
-
-             <!--       <ListView x:Name="PlacesList" HasUnevenRows="True" SelectionMode="None" 
-              ItemsSource="{Binding PlacesList}" IsPullToRefreshEnabled="True"
-                  RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
-
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="model:PlaceItemSummary">
-                                <ViewCell>
-                                    <Frame CornerRadius="4"
-                               HasShadow="True"
-                               Margin="4,4,4,4"
-                               Padding="8,4,8,4"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="Start"
-                               >
-                                        <StackLayout HorizontalOptions="FillAndExpand"
-                                         VerticalOptions="Start"
-                                         Orientation="Horizontal"
-                                         >
-
-                                            <StackLayout Orientation="Horizontal"
-                                             Grid.Column="0"
-                                             HorizontalOptions="FillAndExpand"
-                                             VerticalOptions="Center"
-                                             >
-                                                <Image Source="{Binding ImageUrl}"
-                                           HeightRequest="150"
-                                           WidthRequest="150"/>
-
-                                                <StackLayout Orientation="Vertical">
-                                                    <Label Text="{Binding Title}" 
-                                           TextColor="Black" 
-                                           LineBreakMode="WordWrap" 
-                                           FontSize="24"
-                                           />
-                                                    <Label Text="{Binding Description}" 
-                                           TextColor="Black" 
-                                           LineBreakMode="WordWrap" 
-                                           FontSize="18"
-                                           MaxLines="2"
-                                           />
-                                                </StackLayout>
-                                            </StackLayout>
-                                        </StackLayout>
-                                    </Frame>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackLayout>
-
-            </ContentPage.Content>
-            
-        </ContentPage>
-    </MasterDetailPage.Detail>  -->
-
-
 </MasterDetailPage >

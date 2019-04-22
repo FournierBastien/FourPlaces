@@ -53,14 +53,6 @@
                 </ListView>
             </RelativeLayout>
 
-            <!--<StackLayout Orientation="Horizontal">
-                <Button  Text="Selectionner une Image"
-                         Margin="10,0"
-                        Command="{Binding BoutonChargerImage}" />
-
-                
-            </StackLayout>-->
-
             <Label Text="Localisation"
                    HorizontalTextAlignment="Center"
                 FontSize="20"
@@ -75,16 +67,6 @@
                     <Label Text="Latitude"
                         FontSize="20"
                            Margin="5,0"/>
-
-
-
-                    <!--  <syncfusion:SfNumericUpDown 
-                        x:Name="Latitude"
-                        Value="{Binding Longitude}"  
-                        Maximum="90"
-                        Minimum="-90"
-                        AutoReverse="True"/>
-                    --> 
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical"
@@ -92,37 +74,8 @@
                     <Label Text="Longitude"
                        FontSize="20"
                        Margin="5,0"/>
-
-                    <!--<syncfusion:SfNumericUpDown 
-                        x:Name="Longitude"
-                        Value="{Binding Longitude}" 
-                        Maximum="180"
-                        Minimum="-180"
-                        AutoReverse="True"/> -->
                 </StackLayout>
             </StackLayout>
-            <!--<StackLayout Orientation="Horizontal">
-                <StackLayout Orientation="Vertical"
-                             HorizontalOptions="CenterAndExpand">
-                    <Label Text="Latitude"
-                        FontSize="20"
-                        Margin="10,0"/>
-                    <Entry Text="{Binding Latitude}"
-                        Margin="10,0"/>
-                </StackLayout>
-
-                <StackLayout Orientation="Vertical"
-                    HorizontalOptions="CenterAndExpand">
-                    <Label Text="Longitude"
-                       FontSize="20"
-                       Margin="10,0"/>
-                    <Slider
-                        Minimum="-90"
-                        Maximum="90"
-                        BackgroundColor="Black"
-                        Value="{Binding Longitude}" />
-                </StackLayout>
-            </StackLayout>-->
 
             <Button Text="Ajouter le lieu"
                 Command="{Binding AddPlaceButton}"

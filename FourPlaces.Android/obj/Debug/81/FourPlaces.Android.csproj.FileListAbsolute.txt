@@ -1,12 +1,12 @@
-D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\MonoAndroid,Version=v8.1.AssemblyAttributes.cs
-D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\FourPlaces.Android.nuget.stamp
-D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\FourPlaces.Android.csprojAssemblyReference.cache
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\bin\Debug\FourPlaces.Android.dll
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\bin\Debug\FourPlaces.Android.pdb
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\bin\Debug\com.companyname.apk
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\bin\Debug\com.companyname-Signed.apk
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\bin\Debug\FourPlaces.dll
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\bin\Debug\FourPlaces.pdb
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\MonoAndroid,Version=v8.1.AssemblyAttributes.cs
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\FourPlaces.Android.nuget.stamp
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\FourPlaces.Android.csprojAssemblyReference.cache
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\libraryimports.cache.stamp
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\res.flag
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\FourPlaces.Android.csproj.CoreCompileInputs.cache
@@ -113,6 +113,8 @@ D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\android\assets\Xamarin.Forms.Core.pdb
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\android\assets\Xamarin.Forms.Platform.Android.pdb
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\android\assets\Xamarin.Forms.Xaml.pdb
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\bin\Debug\netstandard2.0\FourPlaces.dll
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\bin\Debug\FourPlaces.dll.mdb
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\linksrc\FourPlaces.dll.mdb
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\linksrc\Plugin.Media.dll.mdb
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces.Android\obj\Debug\81\linksrc\Plugin.Permissions.dll.mdb

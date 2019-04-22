@@ -7,18 +7,18 @@ namespace FourPlaces.ViewModels
 {
     public class EditPasswordViewModel : ViewModelBase
     {
-        private string oldPassword;
+        private string password;
         private string newPassword;
         private string newPassword2;
 
-        public ICommand BoutonEnregistrer { protected set; get; }
+        public ICommand EditPasswordButton { protected set; get; }
         public INavigation Navigation { get; set; }
 
 
-        public string OldPassword
+        public string Password
         {
-            get => oldPassword;
-            set => SetProperty(ref oldPassword, value);
+            get => password;
+            set => SetProperty(ref password, value);
         }
 
         public string NewPassword
@@ -36,17 +36,17 @@ namespace FourPlaces.ViewModels
         public EditPasswordViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
-            OldPassword = "";
+            Password = "";
             NewPassword = "";
             NewPassword2 = "";
-            BoutonEnregistrer = new Command(async () => { await ModifyPassword(); });
+            EditPasswordButton= new Command(async () => { await ModifyPassword(); });
         }
 
         public async Task ModifyPassword()
         {
             if (NewPassword == NewPassword2 && NewPassword != "")
             {
-                bool res = await App.SERVICE.EditPassword(OldPassword, NewPassword);
+                bool res = await App.SERVICE.EditPassword(Password, NewPassword);
                 if (res)
                 {
                     await Navigation.PopAsync();

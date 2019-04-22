@@ -168,14 +168,13 @@ namespace FourPlaces.ViewModels
             {
                 Console.WriteLine("Erreur Add Place");
                 await Navigation.PopAsync();
-                //MsgErreur = "Echec de la création";
             }
         }
 
         // chargé une image
         public async Task LoadImage()
         {
-            int? res = await App.SERVICE.LoadPicture(true);
+            int? res = await App.SERVICE.LoadPicture();
             if (res != null)
             {
                 ImageId = res.ToString();
@@ -184,7 +183,6 @@ namespace FourPlaces.ViewModels
             }
             else
             {
-                //MsgErreur = "Echec, la photo n'a pas été enregistrée";
             }
         }
 

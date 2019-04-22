@@ -1,3 +1,6 @@
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\bin\Debug\netstandard2.0\FourPlaces.deps.json
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\bin\Debug\netstandard2.0\FourPlaces.dll
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\bin\Debug\netstandard2.0\FourPlaces.pdb
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\App.xaml.g.cs
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\Views\AddPlacePage.xaml.g.cs
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\Views\DetailPage.xaml.g.cs
@@ -12,9 +15,6 @@ D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\FourPlaces.csproj.CoreCompileInputs.cache
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\FourPlaces.AssemblyInfoInputs.cache
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\FourPlaces.AssemblyInfo.cs
+D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\XamlC.stamp
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\FourPlaces.dll
 D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\FourPlaces.pdb
-D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\bin\Debug\netstandard2.0\FourPlaces.deps.json
-D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\bin\Debug\netstandard2.0\FourPlaces.dll
-D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\bin\Debug\netstandard2.0\FourPlaces.pdb
-D:\Bastien\Documents\Master\DevMultiPlateformes\FourPlaces\FourPlaces\FourPlaces\obj\Debug\netstandard2.0\XamlC.stamp

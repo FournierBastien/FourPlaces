@@ -61,29 +61,5 @@ namespace FourPlaces.Services
             }
             return null;
         }
-
-
-        // prendre une photo
-        public async Task<MediaFile> TakePicture()
-        {
-            try
-            {
-                if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
-                {
-                    var media = new StoreCameraMediaOptions
-                    {
-                        Directory = "Receipts",
-                        Name = $"{DateTime.UtcNow}.jpg"
-                    };
-
-                    var file = await CrossMedia.Current.TakePhotoAsync(media);
-                    return file;
-                }
-            }
-            catch (Exception e) {
-                //Console.WriteLine("====================================" + e);
-            }
-            return null;
-        }
     }
 }

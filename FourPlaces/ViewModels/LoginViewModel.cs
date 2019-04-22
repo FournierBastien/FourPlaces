@@ -10,8 +10,8 @@ namespace FourPlaces.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         private string _msg = "";
-        private string _email = "bastien@gmail.com";
-        private string _password = "imis";
+        private string _email = "";
+        private string _password = "";
         public ICommand LoginCommand { protected set; get; }
         public ICommand NavigateToRegisterCommand { protected set; get; }
         public INavigation Navigation { get; set; }
@@ -69,7 +69,8 @@ namespace FourPlaces.ViewModels
 
         public async Task NavigateToRegisterAsync()
         {
-            await Navigation.PushAsync(new RegisterPage());
+            Application.Current.MainPage = new RegisterPage();
+            //await Navigation.PushAsync(new RegisterPage());
             return;
         }
     }

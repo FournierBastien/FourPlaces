@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FourPlaces.Views.EditPage"
-             xmlns:model="clr-namespace:FourPlaces.Model"
-             Title="Edit">
+             Title="Edit User">
     <ScrollView>
         <StackLayout Orientation="Vertical">
             <StackLayout>
@@ -33,48 +32,15 @@
                 <Image Source="{Binding ImageUrl}" Margin="10,0" WidthRequest="120" HeightRequest="120"/>
 
 
-            </StackLayout>
 
-
-
-            <RelativeLayout HeightRequest="120">
-                <ListView HasUnevenRows="True"
-                SeparatorVisibility="None"
-                Rotation="270"
-                RowHeight="120"
-                ItemsSource="{Binding Images}"
-                SelectedItem="{Binding SelectedImage, Mode=TwoWay}"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-60}"
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=60}"
-                RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=120}"
-                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:ImageItem">
-                            <ViewCell>
-                                <ContentView Rotation="90">
-                                    <Image Source="{Binding Url}" Margin="0,0,0,10" WidthRequest="120" HeightRequest="120" Aspect="AspectFit"/>
-                                </ContentView>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView> 
-            </RelativeLayout>
-
-            <!--
-            <StackLayout Orientation="Horizontal">
                 <ImageButton  Source="loadPhoto.png"
                 HorizontalOptions="End"
-                Command="{Binding LoadPictureCommand}" />
+                Command="{Binding LoadPictureCommand}"/>
 
-                <ImageButton  Source="takePhoto.png"
-                HorizontalOptions="End"
-                Command="{Binding TakePictureCommand}" />
-            </StackLayout> -->
-
-            <Button Text="Modifier son profil"
+                <Button Text="Modifier son profil"
                 Command="{Binding SubmitEditCommand}"
                 Margin="10,0"/>
+            </StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>
