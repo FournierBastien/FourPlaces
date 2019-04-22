@@ -84,26 +84,16 @@ namespace FourPlaces.ViewModels
 
             set
             {
-                try
+                int? temp = int.Parse(value);
+                SetProperty(ref _imageId, temp);
+                if (ImageId == "")
                 {
-                    int? temp = int.Parse(value);
-                    SetProperty(ref _imageId, temp);
-                    if (ImageId == "")
-                    {
-                        _imageUrl = "https://td-api.julienmialon.com/images/1";
-                    }
-                    else
-                    {
-                        _imageUrl = "https://td-api.julienmialon.com/images/" + ImageId;
-                    }
-
-                }
-                catch
-                {
-                    SetProperty(ref _imageId, 1);
                     _imageUrl = "https://td-api.julienmialon.com/images/1";
                 }
-                OnPropertyChanged("ImageUrl");
+                else
+                {
+                    _imageUrl = "https://td-api.julienmialon.com/images/" + ImageId;
+                }
 
             }
         }

@@ -86,15 +86,15 @@ namespace FourPlaces.Model.Services
         }
 
         // requête pour modifier son mot de passe
-        public async Task<bool> EditPassword(string oldPassword, string newPassword)
+        public async Task<bool> EditPassword(string Password, string newPassword)
         {
 
             try
             {
                 httpClient = new HttpClient();
-                HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), "https://td-api.julienmialon.com/auth/me/password");
+                HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), "https://td-api.julienmialon.com/me/password");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
-                UpdatePasswordRequest pass = new UpdatePasswordRequest(oldPassword, newPassword);
+                UpdatePasswordRequest pass = new UpdatePasswordRequest(Password, newPassword);
 
                 string data = JsonConvert.SerializeObject(pass);
                 request.Content = new StringContent(data, Encoding.UTF8, "application/json");
@@ -112,8 +112,8 @@ namespace FourPlaces.Model.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        bool tryRef = await RefreshToken();
-                        if (tryRef)
+                        bool token = await RefreshToken();
+                        if (token)
                         {
                             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
                             response = await httpClient.SendAsync(request);
@@ -124,8 +124,10 @@ namespace FourPlaces.Model.Services
                                     return true;
                                 }
                             }
+                            Console.WriteLine(response.StatusCode);
                         }
                     }
+                    Console.WriteLine(response.StatusCode);
                 }
                 return false;
             }
@@ -163,8 +165,8 @@ namespace FourPlaces.Model.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        bool tryRef = await RefreshToken();
-                        if (tryRef)
+                        bool token = await RefreshToken();
+                        if (token)
                         {
                             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
                             response = await httpClient.SendAsync(request);
@@ -248,8 +250,8 @@ namespace FourPlaces.Model.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        bool tryRef = await RefreshToken();
-                        if (tryRef)
+                        bool token = await RefreshToken();
+                        if (token)
                         {
                             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
                             response = await httpClient.SendAsync(request);
@@ -274,11 +276,6 @@ namespace FourPlaces.Model.Services
 
         public async Task<PlacesList> GetListPlaces()
         {
-
-            /*if (Barrel.Current.IsExpired("PlacesList"))
-            {
-                return Barrel.Current.Get<PlacesList>("PlacesList");
-            }*/
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -382,8 +379,8 @@ namespace FourPlaces.Model.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        bool tryRef = await RefreshToken();
-                        if (tryRef)
+                        bool token = await RefreshToken();
+                        if (token)
                         {
                             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
                             response = await httpClient.SendAsync(request);
@@ -545,7 +542,6 @@ namespace FourPlaces.Model.Services
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, uri);
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", App.SESSION_LOGIN.AccessToken);
 
-                //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Barrel.Current.Get<LoginResult>(key: "Login").AccessToken);
                 MultipartFormDataContent requestContent = new MultipartFormDataContent();
                 var imageContent = new ByteArrayContent(imageData);
                 imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
@@ -562,8 +558,8 @@ namespace FourPlaces.Model.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        bool tryRef = await RefreshToken();
-                        if (tryRef)
+                        bool token = await RefreshToken();
+                        if (token)
                         {
                             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.SESSION_LOGIN.AccessToken);
 
