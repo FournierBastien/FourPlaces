@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:model="clr-namespace:FourPlaces.Model"
+            x:Class="FourPlaces.Views.DetailPage"
+            xmlns:vm="clr-namespace:FourPlaces.ViewModels"
+            xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+            x:DataType="vm:DetailViewModel"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            Title="{Binding Title}">
+    
+    <ContentPage Title="Description" >
+        <ScrollView>
+            <!-- <Frame CornerRadius="10" Padding="0" Margin="10,0"> -->
+                <StackLayout BackgroundColor="White" Margin="10,0">
+                <Label Text="{Binding Title}"  
+                   FontSize="24" 
+                   HorizontalOptions="CenterAndExpand" 
+                   Margin="0,30"/>
+
+                    <Image Source="{Binding ImageUrl}" 
+                   HorizontalOptions="CenterAndExpand"
+                   Margin="10,0"/>
+                    <Frame CornerRadius="10"   
+                       Padding="0"
+                       Margin="10,0" BackgroundColor="Gray">
+                        <Label Text="{Binding Description}"
+                       Margin="10,0" 
+                       FontSize="20" 
+                       TextColor="Black"/>
+                    </Frame>
+                </StackLayout>
+           <!-- </Frame> -->
+        </ScrollView>
+    </ContentPage>
+    <!--
+    <ContentPage>
+        <maps:Map WidthRequest="960" HeightRequest="700"  
+        x:Name="Map"  
+        IsShowingUser="True"  
+        MapType="Street"  
+        />
+    </ContentPage> -->
+
+
+    <ContentPage Title="Map">
+        <ContentView Content="{Binding Map}"
+                         Margin="10,0"/>
+    </ContentPage>
+    
+    <ContentPage Title="Comments">
+        <StackLayout>
+            <Label Text="{Binding Msg}"
+                        FontSize="20"
+                        TextColor="Red"
+                        Margin="10,0"/>
+            
+            <Frame CornerRadius="10"   
+                   Padding="0"
+                   Margin="10,0">
+                <StackLayout BackgroundColor="White"
+                         Margin="10,0">
+                    <Label Text="New comment"
+                    FontSize="20"
+                    Margin="10,0"/>
+                    <Editor Text="{Binding NewComment}"
+                        Placeholder="Comment"
+                        Margin="10,0"
+                        HeightRequest="150"/>
+                    <Button Text="Submit"
+                    Command="{Binding SubmitCommentCommand}"
+                    Margin="10,0"/>
+                </StackLayout>
+            </Frame>
+            <ListView x:Name="CommentsList" HasUnevenRows="True" SelectionMode="None" ItemsSource="{Binding CommentsList}" Margin="10,0"
+                      IsPullToRefreshEnabled="True" >
+                <!-- RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" -->
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:CommentItem">
+                        <ViewCell>
+                            <Frame CornerRadius="4"
+                               HasShadow="True"
+                               Margin="4,4,4,4"
+                               Padding="8,4,8,4"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Start"
+                               >
+                                <StackLayout HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Start"
+                                         Orientation="Horizontal">
+
+                                    <StackLayout Orientation="Vertical"
+                                             Grid.Column="0"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center"
+                                             >
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Author.FirstName}" 
+                                           TextColor="Black" 
+                                           LineBreakMode="WordWrap" 
+                                           FontSize="16"
+                                           />
+                                            <Label Text="{Binding Author.LastName}" 
+                                           TextColor="Black" 
+                                           LineBreakMode="WordWrap" 
+                                           FontSize="16"
+                                           />
+                                        </StackLayout>
+                                        <Label Text="{Binding Text}" 
+                                           TextColor="Black" 
+                                           LineBreakMode="WordWrap" 
+                                           FontSize="20"
+                                           />
+                                        <Label Text="{Binding Date}" 
+                                           TextColor="Black" 
+                                           LineBreakMode="WordWrap" 
+                                           FontSize="16"
+                                           />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage>
+</TabbedPage>

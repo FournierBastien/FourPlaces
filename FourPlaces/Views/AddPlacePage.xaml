@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FourPlaces.Views.AddPlacePage"
+             xmlns:model="clr-namespace:FourPlaces.Model">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding LoadImageButton}"/>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout Orientation="Vertical">
+
+            <Label Text="Nom du lieu"
+               FontSize="20"
+               Margin="10,0"/>
+            <Entry Text="{Binding Title}"
+               Placeholder="nom"
+               Margin="10,0"/>
+
+            <Label Text="Description"
+               FontSize="20"
+               Margin="10,0"/>
+            <Editor Text="{Binding Description}"
+                Placeholder="Description"
+                Margin="10,0"
+                HeightRequest="100"/>
+
+            <Image Source="{Binding ImageUrl}"
+                Margin="10,0" WidthRequest="150" HeightRequest="100"/>
+
+
+            <RelativeLayout HeightRequest="120">
+                <ListView HasUnevenRows="True"
+                SeparatorVisibility="None"
+                Rotation="270"
+                RowHeight="120"
+                ItemsSource="{Binding Images}"
+                SelectedItem="{Binding SelectedImage, Mode=TwoWay}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-60}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=60}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=120}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ImageItem">
+                            <ViewCell>
+                                <ContentView Rotation="90">
+                                    <Image Source="{Binding Url}" Margin="0,0,0,10" WidthRequest="120" HeightRequest="120" Aspect="AspectFit"/>
+                                </ContentView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RelativeLayout>
+
+            <!--<StackLayout Orientation="Horizontal">
+                <Button  Text="Selectionner une Image"
+                         Margin="10,0"
+                        Command="{Binding BoutonChargerImage}" />
+
+                
+            </StackLayout>-->
+
+            <Label Text="Localisation"
+                   HorizontalTextAlignment="Center"
+                FontSize="20"
+                Margin="10,0"/>
+            <ContentView Content="{Binding Map}"
+                HeightRequest="400"
+                Margin="10,0"/>
+
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Vertical"
+                             HorizontalOptions="CenterAndExpand">
+                    <Label Text="Latitude"
+                        FontSize="20"
+                           Margin="5,0"/>
+
+
+
+                    <!--  <syncfusion:SfNumericUpDown 
+                        x:Name="Latitude"
+                        Value="{Binding Longitude}"  
+                        Maximum="90"
+                        Minimum="-90"
+                        AutoReverse="True"/>
+                    --> 
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical"
+                             HorizontalOptions="CenterAndExpand">
+                    <Label Text="Longitude"
+                       FontSize="20"
+                       Margin="5,0"/>
+
+                    <!--<syncfusion:SfNumericUpDown 
+                        x:Name="Longitude"
+                        Value="{Binding Longitude}" 
+                        Maximum="180"
+                        Minimum="-180"
+                        AutoReverse="True"/> -->
+                </StackLayout>
+            </StackLayout>
+            <!--<StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Vertical"
+                             HorizontalOptions="CenterAndExpand">
+                    <Label Text="Latitude"
+                        FontSize="20"
+                        Margin="10,0"/>
+                    <Entry Text="{Binding Latitude}"
+                        Margin="10,0"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical"
+                    HorizontalOptions="CenterAndExpand">
+                    <Label Text="Longitude"
+                       FontSize="20"
+                       Margin="10,0"/>
+                    <Slider
+                        Minimum="-90"
+                        Maximum="90"
+                        BackgroundColor="Black"
+                        Value="{Binding Longitude}" />
+                </StackLayout>
+            </StackLayout>-->
+
+            <Button Text="Ajouter le lieu"
+                Command="{Binding AddPlaceButton}"
+                Margin="10,0"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

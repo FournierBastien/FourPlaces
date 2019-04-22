@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:FourPlaces.Model"
+    x:Class="FourPlaces.Views.PlacesListPage"
+    Title="Places List">
+    <StackLayout>
+        <!-- <ActivityIndicator x:Name="IsBusy" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"/> -->
+
+        <ListView x:Name="PlacesList" HasUnevenRows="True" SelectionMode="None" 
+              ItemsSource="{Binding PlacesList}" IsPullToRefreshEnabled="True"
+                  RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:PlaceItemSummary">
+                    <ViewCell>
+                        <Frame CornerRadius="4"
+                               HasShadow="True"
+                               Margin="4,4,4,4"
+                               Padding="8,4,8,4"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Start"
+                               >
+                            <StackLayout HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Start"
+                                         Orientation="Horizontal"
+                                         >
+
+                                <StackLayout Orientation="Horizontal"
+                                             Grid.Column="0"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center"
+                                             >
+                                    <Image Source="{Binding ImageUrl}"
+                                           HeightRequest="150"
+                                           WidthRequest="150"/>
+
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding Title}" 
+                                           TextColor="Black" 
+                                           LineBreakMode="WordWrap" 
+                                           FontSize="24"
+                                           />
+                                        <Label Text="{Binding Description}" 
+                                           TextColor="Black" 
+                                           LineBreakMode="WordWrap" 
+                                           FontSize="18"
+                                           MaxLines="2"
+                                           />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</forms:BaseContentPage>
